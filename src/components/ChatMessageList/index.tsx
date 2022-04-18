@@ -45,7 +45,6 @@ export const ChatMessageList = () => {
       id="mensagens"
       className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-purple scrollbar-thumb-rounded scrollbar-track-indigo-lighter scrollbar-w-2 scrolling-touch">
       {[...mensagens]
-        .reverse()
         .filter((mensagem) => mensagem.texto.match(new RegExp(buscaMensagem, "i")))
         .map((mensagem) =>
           mensagem.autor.usuarioAtual ? (
