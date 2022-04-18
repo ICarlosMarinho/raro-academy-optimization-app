@@ -46,7 +46,7 @@ export const ChatProvider: React.FC = ({ children }) => {
 
     // produz uma carga inicial de mensagens.
     // util para testes.
-    Array.from(new Array(10000)).forEach(() => {
+    Array.from(new Array(100)).forEach(() => {
       const id = faker.datatype.number({ min: 0, max: 1 });
       const autor = participantes[id];
       const texto = faker.lorem.sentence();
