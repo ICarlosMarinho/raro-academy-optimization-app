@@ -1,11 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useChat } from "../../contexts/chat.context";
+import { memo, useEffect, useRef, useState } from "react";
+import { ParticipanteChat } from "../../types/Participantes";
 
-export const ChatHeader = () => {
-  const chat = useChat();
+interface ChatHeaderProps {
+  setBuscaMensagem: (buscaMensagem: string) => void;
+  participantes: ParticipanteChat[];
+}
+
+export const ChatHeader: React.FC<ChatHeaderProps> = memo(({ setBuscaMensagem, participantes }) => {
   const [filtro, setFiltro] = useState("");
   const timeoutId = useRef<ReturnType<typeof setTimeout>>();
-  const contato = chat.participantes.find((p) => !p.usuarioAtual);
+  const contato = participantes.find((p) => !p.usuarioAtual);
 
   useEffect(() => {
     if (timeoutId.current) {
@@ -13,7 +17,7 @@ export const ChatHeader = () => {
     }
 
     timeoutId.current = setTimeout(() => {
-      chat.setBuscaMensagem(filtro);
+      setBuscaMensagem(filtro);
     }, 500);
   }, [filtro]);
 
@@ -69,4 +73,4 @@ export const ChatHeader = () => {
       </div>
     </div>
   );
-};
+});
