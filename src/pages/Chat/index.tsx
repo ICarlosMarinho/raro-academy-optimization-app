@@ -6,13 +6,12 @@ import { useChat } from "../../contexts/chat.context";
 
 export default function Chat() {
   const { setBuscaMensagem, adicionaMensagem, participantes } = useChat();
-  const adicionaMensagemRef = useRef(adicionaMensagem);
 
   return (
     <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
       <ChatHeader setBuscaMensagem={setBuscaMensagem} participantes={participantes} />
       <ChatMessageList />
-      <ChatTextArea adicionaMensagem={adicionaMensagemRef.current} participantes={participantes} />
+      <ChatTextArea adicionaMensagem={adicionaMensagem} participantes={participantes} />
     </div>
   );
 }

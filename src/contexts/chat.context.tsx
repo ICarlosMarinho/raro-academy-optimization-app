@@ -1,5 +1,5 @@
 import faker from "@faker-js/faker";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { geraPessoas } from "../helpers/gera-pessoa";
 import { Mensagem } from "../types/Mensagem";
 import { ParticipanteChat } from "../types/Participantes";
@@ -34,6 +34,7 @@ export const ChatProvider: React.FC = ({ children }) => {
   const [mensagens, setMensagens] = useState<Mensagem[]>([]);
   const [buscaMensagem, setBuscaMensagem] = useState<string>("");
   const [participantes, setParticipantes] = useState<ParticipanteChat[]>([]);
+  const adicionaMensagemRef = useRef<typeof adicionaMensagem>();
 
   useEffect(() => {
     const participantes = [
@@ -45,7 +46,7 @@ export const ChatProvider: React.FC = ({ children }) => {
 
     // produz uma carga inicial de mensagens.
     // util para testes.
-    Array.from(new Array(100)).forEach(() => {
+    Array.from(new Array(10000)).forEach(() => {
       const id = faker.datatype.number({ min: 0, max: 1 });
       const autor = participantes[id];
       const texto = faker.lorem.sentence();
@@ -58,6 +59,8 @@ export const ChatProvider: React.FC = ({ children }) => {
       const texto = faker.lorem.words(6);
       adicionaMensagem(texto, participantes[0]);
     }, 3000);
+
+    adicionaMensagemRef.current = adicionaMensagem;
 
     return () => {
       clearInterval(interval);
@@ -85,7 +88,7 @@ export const ChatProvider: React.FC = ({ children }) => {
         setBuscaMensagem,
         participantes,
         setParticipantes,
-        adicionaMensagem
+        adicionaMensagem: adicionaMensagemRef.current as typeof adicionaMensagem
       }}>
       {children}
     </ChatContext.Provider>
