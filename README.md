@@ -6,7 +6,7 @@ oferecido pela **Raro Academy**.
 
 ## Otimizações
 
-- [x] Otimiza busca de mensagens através da técnica de _debouce_
+- [x] Otimiza busca de mensagens através da técnica de _debounce_
 - [x] Adiciona _key_ nos componentes que renderizam as mensagens
 - [x] Otimiza os componentes que renderizam as mensagens através da técnica de _memoization_
 
